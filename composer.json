@@ -1,0 +1,62 @@
+{
+    "name": "archytech/simple-captcha",
+    "description": "A simple PHP CAPTCHA script",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "captcha",
+        "simple-captcha",
+        "laravel captcha",
+        "laravel6 captcha",
+        "laravel7 captcha",
+        "laravel6 security",
+        "laravel7 security",
+        "laravel framework"
+    ],
+    "authors": [
+        {
+            "name": "Arief BP",
+            "email": "ariefbp27@gmail.com",
+            "homepage": "https://github.com/archytech99/simple-captcha"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "ext-gd": "*",
+        "illuminate/config": "~5|^6|^7|^8",
+        "illuminate/filesystem": "~5|^6|^7|^8",
+        "illuminate/support": "~5|^6|^7|^8",
+        "illuminate/hashing": "~5|^6|^7|^8",
+        "illuminate/session": "~5|^6|^7|^8",
+        "intervention/image": "~2.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "phpspec/phpspec": "~2.1",
+        "mockery/mockery": "^1.3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Archytech\\Captcha\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Archytech\\Captcha\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Archytech\\Captcha\\SimpleCapthaServiceProvider"
+            ],
+            "aliases": {
+                "Captcha": "Archytech\\Captcha\\Facades\\Facade"
+            }
+        }
+    },
+    "minimum-stability": "stable"
+}
