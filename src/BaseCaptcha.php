@@ -45,24 +45,25 @@ class BaseCaptcha implements Repository
     protected $bgImage = true;
     protected $encrypt = true;
     protected $shadowOffset = 2;
-    protected $blur = 0;
+    protected $width = 248;
+    protected $height = 66;
     protected $lines = 4;
     protected $length = 5;
-    protected $width = 160;
-    protected $height = 52;
+    protected $blur = 0;
     protected $sharpen = 0;
     protected $expire = 60;
     protected $contrast = 0;
-    protected $quality = 90;
+    protected $quality = 85;
     protected $textMarginLeft = 10;
+    protected $textMarginTop = 2;
 
     public function __construct() {
         $this->str = new Str;
         $this->hasher = new Hash;
         $this->files = new Filesystem;
         $this->imageManager = new ImageManager;
-        $this->characters = config('captcha.characters', $this->charDefault);
         $this->fonts = $this->files->files(__DIR__ . '/../assets/fonts');
+        $this->characters = config('captcha.characters', $this->charDefault);
         $this->backgrounds = $this->files->files(__DIR__ . '/../assets/backgrounds');
     }
 
@@ -104,7 +105,7 @@ class BaseCaptcha implements Repository
     protected function code(): array
     {
         $code = '';
-        $characters = $this->characters;
+        $characters = is_array($this->characters) ? implode($this->characters) : $this->characters;
 
         while( strlen($code) < $this->length ) {
             $code .= substr($characters, mt_rand() % (strlen($characters)), 1);
@@ -123,12 +124,11 @@ class BaseCaptcha implements Repository
 
     protected function draw(): void
     {
-        $text = $this->text;
-        $marginTop = ($this->image->height() - 2) / $this->length;
+        $marginTop = ($this->image->height() - $this->textMarginTop) / $this->length;
         $text = str_split($this->text);
 
         foreach ($text as $key => $char) {
-            $marginLeft = mt_rand(0, $this->textMarginLeft) + ($key * ($this->image->width() - mt_rand(0, $this->textMarginLeft)) / $this->length);
+            $marginLeft = $this->textMarginLeft + ($key * ($this->image->width() - mt_rand(0, $this->textMarginLeft)) / $this->length);
 
             if ($this->shadow) {
                 $this->fontShadow = [
@@ -194,6 +194,7 @@ class BaseCaptcha implements Repository
         return '#666';
     }
 
+    /* Implements method in interface '\Illuminate\Contracts\Config\Repository' */
     public function has($key): void
     {
         // TODO: Implement has() method.
@@ -223,4 +224,5 @@ class BaseCaptcha implements Repository
     {
         // TODO: Implement push() method.
     }
+    /* Implements method in interface 'Repository' */
 }
