@@ -21,7 +21,7 @@ class Controller extends BaseController
     {
         $form = '<form method="POST" action="">';
         $form .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
-        $form .= '<p>' . captcha_image_html(['style'=>'border-radius: 15px;']) . '</p>';
+        $form .= '<p>' . captcha_image_html(['style'=>'border-radius: 15px; width: 192px;']) . '</p>';
 
         if (request()->getMethod() == 'POST') {
             $rules = ['captcha' => 'required|captcha'];
