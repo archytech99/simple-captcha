@@ -5,9 +5,9 @@ return [
     'characters'      => '98765432ABCDEFGHJKLMNPRSTUVWXYZabcdefghjkmnprstuvwxyz',
     'background'      => [
         'image'       => true,
-        'img_static'  => true,
-        'width'       => 160,
-        'height'      => 52,
+        'img_static'  => false,
+        'width'       => 248,
+        'height'      => 66,
         'color'       => '#666'
     ],
     'font'            => [
@@ -29,5 +29,5 @@ return [
     'blur'            => 0,
     'shadow'          => false,
     'invert'          => false,
-    'quality'         => 90
+    'quality'         => 85
 ];
