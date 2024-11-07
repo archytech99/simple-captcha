@@ -10,8 +10,10 @@ class SimpleCapthaServiceProvider extends ServiceProvider
     {
         /* Merge configuration files */
         if (file_exists(config_path('captcha.php'))) {
-            $this->mergeConfigFrom(config_path('captcha.php'),
-            'captcha');
+            $this->mergeConfigFrom(
+                config_path('captcha.php'),
+                'captcha'
+            );
         }
 
         /* Bind captcha */
@@ -33,7 +35,7 @@ class SimpleCapthaServiceProvider extends ServiceProvider
 
         /* @var Router $router */
         $router = $this->app['router'];
-        if ((double)$this->app->version() >= 5.2) {
+        if ((float)$this->app->version() >= 5.2) {
             $router->get('captcha', '\Archytech\Captcha\Controller@getCaptcha')->middleware('web');
             $router->get('captcha/api', '\Archytech\Captcha\Controller@getCaptchaApi')->middleware('web');
             $router->any('captcha/test', '\Archytech\Captcha\Controller@testCaptcha')->middleware('web');
@@ -65,6 +67,6 @@ class SimpleCapthaServiceProvider extends ServiceProvider
 
     private function getPathPackage($path = 'src/'): string
     {
-        return __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.$path;
+        return __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $path;
     }
 }

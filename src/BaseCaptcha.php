@@ -34,7 +34,7 @@ class BaseCaptcha implements Repository
     protected $backgrounds;
     protected $fontShadow;
     protected $fonts;
-    private $fontSize = ['min'=> 42, 'max'=> 42];
+    private $fontSize = ['min' => 42, 'max' => 42];
     protected $fontColors;
     protected $lineColors;
     protected $text;
@@ -57,7 +57,8 @@ class BaseCaptcha implements Repository
     protected $textMarginLeft = 10;
     protected $textMarginTop = 2;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->str = new Str;
         $this->hasher = new Hash;
         $this->files = new Filesystem;
@@ -67,7 +68,8 @@ class BaseCaptcha implements Repository
         $this->backgrounds = $this->files->files(__DIR__ . '/../assets/backgrounds');
     }
 
-    protected function config() {
+    protected function config()
+    {
         $this->bgColor = config('captcha.background.color', $this->bgColor);
         $this->bgImage = config('captcha.background.image', $this->bgImage);
         $this->bgStatic = config('captcha.background.img_static', $this->bgStatic);
@@ -107,7 +109,7 @@ class BaseCaptcha implements Repository
         $code = '';
         $characters = is_array($this->characters) ? implode($this->characters) : $this->characters;
 
-        while( strlen($code) < $this->length ) {
+        while (strlen($code) < $this->length) {
             $code .= substr($characters, mt_rand() % (strlen($characters)), 1);
         }
 
@@ -132,12 +134,15 @@ class BaseCaptcha implements Repository
 
             if ($this->shadow) {
                 $this->fontShadow = [
-                    'file'=> $this->font(),
-                    'size'=> $this->fontSize(),
-                    'color'=> '#444'
+                    'file' => $this->font(),
+                    'size' => $this->fontSize(),
+                    'color' => '#444'
                 ];
 
-                $this->image->text($char, $marginLeft + $this->shadowOffset, $marginTop - $this->shadowOffset,
+                $this->image->text(
+                    $char,
+                    $marginLeft + $this->shadowOffset,
+                    $marginTop - $this->shadowOffset,
                     function (Font $font) {
                         $font->align('left');
                         $font->valign('top');
@@ -148,12 +153,15 @@ class BaseCaptcha implements Repository
                 );
             } else {
                 $this->fontShadow = [
-                    'file'=> $this->font(),
-                    'size'=> $this->fontSize()
+                    'file' => $this->font(),
+                    'size' => $this->fontSize()
                 ];
             }
 
-            $this->image->text($char, $marginLeft, $marginTop,
+            $this->image->text(
+                $char,
+                $marginLeft,
+                $marginTop,
                 function (Font $font) {
                     $font->align('left');
                     $font->valign('top');
@@ -179,9 +187,9 @@ class BaseCaptcha implements Repository
     {
         return rand(
             $this->get('captcha.font.min_size')
-            ?? $this->fontSize['min'],
+                ?? $this->fontSize['min'],
             $this->get('captcha.font.max_size')
-            ?? $this->fontSize['max']
+                ?? $this->fontSize['max']
         );
     }
 

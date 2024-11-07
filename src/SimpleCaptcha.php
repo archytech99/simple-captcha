@@ -9,7 +9,8 @@ use Illuminate\Support\HtmlString;
 
 class SimpleCaptcha extends BaseCaptcha
 {
-    public function __construct(Session $session) {
+    public function __construct(Session $session)
+    {
         parent::__construct();
         $this->session = $session;
     }
@@ -33,12 +34,15 @@ class SimpleCaptcha extends BaseCaptcha
         $captcha = $this->code();
         $this->text = $captcha['code'];
         $this->canvas = $this->imageManager->canvas(
-            $this->width, $this->height, $this->bgColor
+            $this->width,
+            $this->height,
+            $this->bgColor
         );
 
         if ($this->bgImage) {
             $this->image = $this->imageManager->make($background)->resize(
-                $this->width, $this->height
+                $this->width,
+                $this->height
             );
 
             $this->canvas->insert($this->image);
